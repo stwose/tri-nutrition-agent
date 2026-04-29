@@ -15,6 +15,7 @@ let sessions = loadSessions();
 
 const profileForm = document.querySelector("#profileForm");
 const tableBody = document.querySelector("#trainingTable tbody");
+const trainingCards = document.querySelector("#trainingCards");
 const selectedDate = document.querySelector("#selectedDate");
 const statusMessage = document.querySelector("#statusMessage");
 
@@ -141,6 +142,7 @@ function persistSessions() {
 
 function renderTable() {
   tableBody.innerHTML = "";
+  trainingCards.innerHTML = "";
   sessions
     .sort((a, b) => `${a.date} ${a.start_time}`.localeCompare(`${b.date} ${b.start_time}`))
     .forEach((session, index) => {
@@ -158,9 +160,10 @@ function renderTable() {
         <td><button class="delete-btn" data-delete="${index}" aria-label="Eliminar sesion">x</button></td>
       `;
       tableBody.appendChild(row);
+      trainingCards.insertAdjacentHTML("beforeend", renderTrainingCard(session, index));
     });
 
-  tableBody.querySelectorAll("input, select").forEach((field) => {
+  document.querySelectorAll("[data-index][data-field]").forEach((field) => {
     field.addEventListener("change", (event) => {
       const index = Number(event.target.dataset.index);
       const key = event.target.dataset.field;
@@ -171,7 +174,7 @@ function renderTable() {
     });
   });
 
-  tableBody.querySelectorAll("[data-delete]").forEach((button) => {
+  document.querySelectorAll("[data-delete]").forEach((button) => {
     button.addEventListener("click", () => {
       sessions.splice(Number(button.dataset.delete), 1);
       persistSessions();
@@ -181,7 +184,33 @@ function renderTable() {
   });
 }
 
+function renderTrainingCard(session, index) {
+  return `
+    <article class="training-card">
+      <div class="training-card-head">
+        <strong>${session.date} · ${session.start_time || "--:--"}</strong>
+        <button class="delete-btn" data-delete="${index}" aria-label="Eliminar sesion">x</button>
+      </div>
+      <div class="training-card-grid">
+        <label>Fecha<input data-index="${index}" data-field="date" type="date" value="${session.date}"></label>
+        <label>Hora<input data-index="${index}" data-field="start_time" type="time" value="${session.start_time || ""}"></label>
+        <label>Deporte${selectInput(index, "sport", sportOptions, session.sport)}</label>
+        <label>Entorno${selectInput(index, "environment", environmentOptions, session.environment)}</label>
+        <label>Tipo${selectInput(index, "session_type", sessionOptions, session.session_type)}</label>
+        <label>Intensidad${selectInput(index, "intensity", intensityOptions, session.intensity)}</label>
+        <label>Min<input data-index="${index}" data-field="duration_min" type="number" min="0" value="${session.duration_min || 0}"></label>
+        <label>TSS<input data-index="${index}" data-field="planned_tss" type="number" min="0" value="${session.planned_tss || 0}"></label>
+        <label class="full">Descripcion<input data-index="${index}" data-field="description" value="${escapeHtml(session.description || "")}"></label>
+      </div>
+    </article>
+  `;
+}
+
 function selectCell(index, field, options, current) {
+  return selectInput(index, field, options, current);
+}
+
+function selectInput(index, field, options, current) {
   const opts = options.map((option) => `<option value="${option}" ${option === current ? "selected" : ""}>${label(option)}</option>`).join("");
   return `<select data-index="${index}" data-field="${field}">${opts}</select>`;
 }

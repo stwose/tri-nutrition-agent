@@ -18,8 +18,15 @@
       </div>
     </header>
 
+    <nav class="mobile-tabs" aria-label="Secciones">
+      <a href="#today-section">Hoy</a>
+      <a href="#week-section">Semana</a>
+      <a href="#planner-section">Entrenos</a>
+      <a href="#profile-section">Perfil</a>
+    </nav>
+
     <main class="layout">
-      <section class="panel profile-panel" aria-labelledby="profile-title">
+      <section id="profile-section" class="panel profile-panel" aria-labelledby="profile-title">
         <div class="section-head">
           <div>
             <p class="eyebrow">Atleta</p>
@@ -83,7 +90,7 @@
         </form>
       </section>
 
-      <section class="panel" aria-labelledby="planner-title">
+      <section id="planner-section" class="panel" aria-labelledby="planner-title">
         <div class="section-head">
           <div>
             <p class="eyebrow">Calendario</p>
@@ -114,6 +121,7 @@
             <tbody></tbody>
           </table>
         </div>
+        <div id="trainingCards" class="training-cards"></div>
 
         <div class="table-actions">
           <button id="addSessionBtn">Añadir sesión</button>
@@ -126,7 +134,7 @@
         <p id="statusMessage" class="status-message" role="status"></p>
       </section>
 
-      <section class="output-grid">
+      <section id="today-section" class="output-grid">
         <article class="panel result-panel" aria-labelledby="analysis-title">
           <p class="eyebrow">Hoy</p>
           <h2 id="analysis-title">Lectura deportiva</h2>
@@ -152,7 +160,7 @@
         </article>
       </section>
 
-      <section class="panel week-panel" aria-labelledby="week-title">
+      <section id="week-section" class="panel week-panel" aria-labelledby="week-title">
         <div class="section-head">
           <div>
             <p class="eyebrow">7 días</p>

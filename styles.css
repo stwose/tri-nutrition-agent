@@ -23,6 +23,10 @@ body {
   color: var(--ink);
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 button,
 input,
 select {
@@ -101,6 +105,10 @@ h2 {
   flex-wrap: wrap;
 }
 
+.mobile-tabs {
+  display: none;
+}
+
 .layout {
   padding: 22px clamp(18px, 4vw, 48px) 44px;
   display: grid;
@@ -165,6 +173,10 @@ select {
   overflow: auto;
   border: 1px solid var(--line);
   border-radius: var(--radius);
+}
+
+.training-cards {
+  display: none;
 }
 
 table {
@@ -371,13 +383,53 @@ td.description-cell {
   .menu-panel {
     grid-column: span 2;
   }
+
+  .week-grid {
+    grid-template-columns: repeat(7, minmax(240px, 1fr));
+  }
 }
 
 @media (max-width: 680px) {
+  body {
+    padding-bottom: 76px;
+  }
+
   .topbar,
   .section-head {
     align-items: stretch;
     flex-direction: column;
+  }
+
+  .topbar {
+    padding-top: 22px;
+  }
+
+  h1 {
+    font-size: 1.55rem;
+  }
+
+  .mobile-tabs {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: #fff;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .mobile-tabs a {
+    color: var(--ink);
+    font-size: 0.82rem;
+    font-weight: 900;
+    text-align: center;
+    text-decoration: none;
+    padding: 12px 4px;
+  }
+
+  .mobile-tabs a:focus,
+  .mobile-tabs a:hover {
+    background: var(--soft);
   }
 
   .profile-grid,
@@ -394,5 +446,67 @@ td.description-cell {
   .table-actions button,
   .file-button {
     flex: 1 1 130px;
+  }
+
+  .layout {
+    padding-inline: 12px;
+    gap: 14px;
+  }
+
+  .panel {
+    padding: 14px;
+  }
+
+  .table-wrap {
+    display: none;
+  }
+
+  .training-cards {
+    display: grid;
+    gap: 10px;
+  }
+
+  .training-card {
+    border: 1px solid var(--line);
+    border-radius: 7px;
+    padding: 12px;
+    background: #fff;
+    display: grid;
+    gap: 10px;
+  }
+
+  .training-card-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+  }
+
+  .training-card-head strong {
+    font-size: 0.95rem;
+  }
+
+  .training-card-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+
+  .training-card-grid .full {
+    grid-column: span 2;
+  }
+
+  .week-grid {
+    grid-template-columns: 1fr;
+    overflow: visible;
+  }
+
+  .day-card {
+    min-height: auto;
+  }
+
+  .mini-meal {
+    max-height: 104px;
+    overflow: auto;
   }
 }
