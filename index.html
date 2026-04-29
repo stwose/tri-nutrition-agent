@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Agente Nutricional Triatlón</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">MVP diario</p>
+        <h1>Agente nutricional para triatlón</h1>
+      </div>
+      <div class="topbar-actions">
+        <button id="generatePlanBtn" class="primary">Generar plan alimenticio</button>
+        <button id="exportCsvBtn">Exportar CSV</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="panel profile-panel" aria-labelledby="profile-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Atleta</p>
+            <h2 id="profile-title">Perfil inicial</h2>
+          </div>
+          <button id="saveProfileBtn">Guardar</button>
+        </div>
+
+        <form id="profileForm" class="profile-grid">
+          <label>
+            Edad
+            <input name="age" type="number" min="16" max="90" value="50">
+          </label>
+          <label>
+            Sexo
+            <select name="sex">
+              <option value="female" selected>Mujer</option>
+              <option value="male">Hombre</option>
+            </select>
+          </label>
+          <label>
+            Altura (cm)
+            <input name="heightCm" type="number" min="120" max="220" value="162">
+          </label>
+          <label>
+            Peso (kg)
+            <input name="weightKg" type="number" min="35" max="150" step="0.1" value="55">
+          </label>
+          <label>
+            Objetivo
+            <select name="goal">
+              <option value="performance" selected>Ganar rendimiento</option>
+              <option value="body_recomposition">Composición corporal</option>
+              <option value="maintenance">Mantener</option>
+            </select>
+          </label>
+          <label>
+            Prueba objetivo
+            <select name="raceType">
+              <option value="full_ironman" selected>Full Ironman</option>
+              <option value="middle_distance">Media distancia</option>
+              <option value="olympic">Olímpico</option>
+            </select>
+          </label>
+          <label>
+            Fecha objetivo
+            <input name="raceDate" type="date" value="2026-10-18">
+          </label>
+          <label>
+            Comidas/día
+            <input name="mealsPerDay" type="number" min="3" max="6" value="4">
+          </label>
+          <label class="wide">
+            Intolerancias
+            <input name="intolerances" value="lactosa, gluten, ajo">
+          </label>
+          <label class="wide">
+            Preferencias
+            <input name="preferences" value="dieta omnívora, estilo mediterráneo, disponibilidad diaria">
+          </label>
+        </form>
+      </section>
+
+      <section class="panel" aria-labelledby="planner-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Calendario</p>
+            <h2 id="planner-title">Entrenos futuros</h2>
+          </div>
+          <div class="date-picker">
+            <label for="selectedDate">Día</label>
+            <input id="selectedDate" type="date">
+          </div>
+        </div>
+
+        <div class="table-wrap">
+          <table id="trainingTable">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Deporte</th>
+                <th>Entorno</th>
+                <th>Tipo</th>
+                <th>Min</th>
+                <th>Intensidad</th>
+                <th>TSS</th>
+                <th>Descripción</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+
+        <div class="table-actions">
+          <button id="addSessionBtn">Añadir sesión</button>
+          <button id="loadSampleBtn">Cargar ejemplo 14 días</button>
+          <label class="file-button">
+            Importar CSV
+            <input id="csvInput" type="file" accept=".csv,text/csv">
+          </label>
+        </div>
+        <p id="statusMessage" class="status-message" role="status"></p>
+      </section>
+
+      <section class="output-grid">
+        <article class="panel result-panel" aria-labelledby="analysis-title">
+          <p class="eyebrow">Hoy</p>
+          <h2 id="analysis-title">Lectura deportiva</h2>
+          <div id="trainingAnalysis" class="analysis"></div>
+        </article>
+
+        <article class="panel result-panel" aria-labelledby="targets-title">
+          <p class="eyebrow">Objetivos</p>
+          <h2 id="targets-title">Nutrición del día</h2>
+          <div id="nutritionTargets" class="targets"></div>
+        </article>
+
+        <article class="panel result-panel menu-panel" aria-labelledby="menu-title">
+          <p class="eyebrow">Platos</p>
+          <h2 id="menu-title">Recomendación diaria</h2>
+          <div id="mealPlan" class="meal-list"></div>
+        </article>
+
+        <article class="panel result-panel" aria-labelledby="race-title">
+          <p class="eyebrow">Ironman</p>
+          <h2 id="race-title">Nutrición de entreno</h2>
+          <div id="raceFueling" class="fueling"></div>
+        </article>
+      </section>
+
+      <section class="panel week-panel" aria-labelledby="week-title">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">7 días</p>
+            <h2 id="week-title">Semana vista</h2>
+          </div>
+        </div>
+        <div id="weekPlan" class="week-grid"></div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
